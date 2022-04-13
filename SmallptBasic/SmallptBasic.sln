@@ -19,8 +19,8 @@ Global
 		{34960CCA-5244-421F-8A80-F9097FED3795}.Debug|x86.Build.0 = Debug|Win32
 		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x64.ActiveCfg = Release|x64
 		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x64.Build.0 = Release|x64
-		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x86.ActiveCfg = Release|Win32
-		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x86.Build.0 = Release|Win32
+		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x86.ActiveCfg = Release|x64
+		{34960CCA-5244-421F-8A80-F9097FED3795}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
