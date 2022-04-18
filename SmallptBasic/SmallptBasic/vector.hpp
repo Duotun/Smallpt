@@ -114,7 +114,7 @@ namespace smallpt_basics {
 			}
 
 			[[nodiscard]]
-			constexpr double Dot(const Vector3& v) noexcept {
+			constexpr double Dot(const Vector3& v) const noexcept {
 				return mx * v.mx + my * v.my + mz * v.mz;
 			}
 
@@ -146,5 +146,156 @@ namespace smallpt_basics {
 			constexpr double operator[](std::size_t i) const noexcept {
 				return (&mx)[i];
 			}
+
+			[[nodiscard]]
+			constexpr double Min() const noexcept {
+				return std::min(mx, std::min(my, mz));
+			}
+
+			[[nodiscard]]
+			constexpr double Max() const noexcept {
+				return std::max(mx, std::max(my, mz));
+			}
+
+			[[nodiscard]]   //length^2 in 3D
+			constexpr double Magnitude_squared() const noexcept {
+				return mx*mx+my*my+mz*mz;
+			}
+
+			[[nodiscard]]   //length in 3D
+			constexpr double Magnitude() const noexcept {
+				return std::sqrt(Magnitude_squared());
+			}
+
+			void Normalize() noexcept {
+				const double p = 1.0 / Magnitude();
+				mx *= p;
+				my *= p;
+				mz *= p;
+			}
 	   };
+
+	   /////////////////////
+	   //Vector3 Utilities for easy use
+	   /////////////////////
+	   std::ostream& operator<<(std::ostream& os, const Vector3& v)
+	   {
+		   os << '[' << v.mx << ' ' << v.my << ' ' << v.mz << ']';
+		   return os;
+	   }
+
+	   [[nodiscard]]
+	   constexpr  Vector3 operator+(double a, const Vector3& v) noexcept {
+		   return { v.mx + a, v.my + a, v.mz + a };
+	   }
+
+	   [[nodiscard]]
+	   constexpr  Vector3 operator-(double a, const Vector3& v) noexcept {
+		   return { v.mx - a, v.my - a, v.mz - a };
+	   }
+
+	   [[nodiscard]]
+	   constexpr  Vector3 operator*(double a, const Vector3& v) noexcept {
+		   return { v.mx * a, v.my * a, v.mz * a };
+	   }
+
+	   [[nodiscard]]
+	   constexpr  Vector3 operator/(double a, const Vector3& v) noexcept {
+		   return { v.mx / a, v.my / a, v.mz / a };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Sqrt(const Vector3& v) noexcept {
+		   return {
+			   std::sqrt(v.mx),
+			   std::sqrt(v.my),
+			   std::sqrt(v.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Pow(const Vector3& v, double p) noexcept {
+		   return {
+			   std::pow(v.mx, p),
+			   std::pow(v.my, p),
+			   std::pow(v.mz, p)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Abs(const Vector3& v) noexcept {
+		   return {
+			   std::abs(v.mx),
+			   std::abs(v.my),
+			   std::abs(v.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Min(const Vector3& v1, const Vector3& v2) noexcept {
+		   return {
+			   std::min(v1.mx, v2.mx),
+			   std::min(v1.my, v2.my),
+			   std::min(v1.mz, v2.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Max(const Vector3& v1, const Vector3& v2) noexcept {
+		   return {
+			   std::max(v1.mx, v2.mx),
+			   std::max(v1.my, v2.my),
+			   std::max(v1.mz, v2.mz)
+		   };
+	   }
+
+	   // simple precision support
+	   [[nodiscard]]
+	   inline const Vector3 Round(const Vector3& v) noexcept {
+		   return {
+			   std::round(v.mx),
+			   std::round(v.my),
+			   std::round(v.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Ceil(const Vector3& v) noexcept {
+		   return {
+			   std::ceil(v.mx),
+			   std::ceil(v.my),
+			   std::ceil(v.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Truncate(const Vector3& v) noexcept {
+		   return {
+			   std::trunc(v.mx),
+			   std::trunc(v.my),
+			   std::trunc(v.mz)
+		   };
+	   }
+
+	   [[nodiscard]]
+	   constexpr const Vector3 Clamp(const Vector3& v, double low = 0.0, double high = 1.0) noexcept {
+		   return{
+			   std::clamp(v.mx, low, high),
+			   std::clamp(v.my, low, high),
+			   std::clamp(v.mz, low, high),
+		   };
+
+	   }
+
+	   [[nodiscard]]
+	   constexpr const Vector3 Lerp(const Vector3& v1, const Vector3& v2, double p) noexcept {
+		   return v1 * p + v2 * (1.0 - p);
+	   }
+
+	   [[nodiscard]]
+	   inline const Vector3 Normalize(const Vector3& v) noexcept {
+		   const double p = 1.0 / v.Magnitude();
+		   return p * v;
+	   }
+
 }
